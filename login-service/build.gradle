@@ -28,7 +28,7 @@ dependencies {
   compile('org.springframework.boot:spring-boot-starter-web')
   compile('org.thymeleaf:thymeleaf-spring4')
   compile('nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect')
-  compile('org.codehaus.groovy.modules.http-builder')
+  compile('org.codehaus.groovy.modules.http-builder:http-builder:0.7.2')
   testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 

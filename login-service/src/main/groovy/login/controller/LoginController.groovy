@@ -22,7 +22,7 @@ class LoginController {
   @RequestMapping(method = POST)
   ResponseEntity login(@Valid @RequestBody Credentials credentials) {
     def user = userServiceClient.findUser(credentials.username)
-    ResponseEntity.ok(user.message)
+    ResponseEntity.ok(user)
   }
 
 }

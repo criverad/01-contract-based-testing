@@ -1,5 +1,6 @@
 package login.client
 
+import groovyx.net.http.RESTClient
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 
@@ -16,10 +17,12 @@ class UserServiceClient {
   String findUserEndpoint
 
   Map findUser(String username) {
-    def endpoint = findUserEndpoint.replace('{username}', username)
-    def url = "http://$host:$port$endpoint"
-    return [
-        message: url.toString()
-    ]
+    def baseUri = "http://$host:$port"
+    def path = findUserEndpoint.replace('{username}', username)
+
+    def client = new RESTClient(baseUri)
+    def result = client.get(path: path)
+
+    result.data
   }
 }
