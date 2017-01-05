@@ -1,0 +1,16 @@
+testdb:
+  image: postgres:latest
+  environment:
+  - POSTGRES_PASSWORD=whatever
+  - POSTGRES_USER=admin
+testbroker:
+  image: dius/pact_broker
+  links:
+  - testdb:postgres
+  environment:
+  - PACT_BROKER_DATABASE_USERNAME=admin
+  - PACT_BROKER_DATABASE_PASSWORD=whatever
+  - PACT_BROKER_DATABASE_HOST=postgres
+  - PACT_BROKER_DATABASE_NAME=postgres
+  ports:
+  - "80:80"
