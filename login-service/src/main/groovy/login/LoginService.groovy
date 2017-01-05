@@ -1,7 +1,9 @@
-import org.springframework.boot.SpringApplication
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration
+package login
 
-@EnableAutoConfiguration
+import org.springframework.boot.SpringApplication
+import org.springframework.boot.autoconfigure.SpringBootApplication
+
+@SpringBootApplication
 class LoginService {
 
   static void main(String... args) {
