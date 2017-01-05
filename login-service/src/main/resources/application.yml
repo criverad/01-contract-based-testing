@@ -1,2 +1,9 @@
 server:
   port: 9090
+
+services:
+  user:
+    host: localhost
+    port: 9091
+    endpoints:
+      findUser: /user/{username}
