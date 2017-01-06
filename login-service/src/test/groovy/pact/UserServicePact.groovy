@@ -35,7 +35,7 @@ class UserServicePact {
       )
       willRespondWith(
           status: 200,
-          headers: ['Content-Type': 'applicaton/json'],
+          headers: ['Content-Type': 'application/json;charset=UTF-8'],
           body: [
               'name'    : 'Some name',
               'lastName': 'Some last name',

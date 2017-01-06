@@ -11,7 +11,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET
 @RequestMapping('/user')
 class UserController {
 
-  @RequestMapping(method = GET, value = '/{username}')
+  @RequestMapping(method = GET, value = '/{username}', produces = 'application/json', consumes = 'application/json')
   ResponseEntity findUser(@PathVariable String username) {
     def user = [
         'name'    : 'Some name',
