@@ -2,12 +2,11 @@ package pact
 
 import au.com.dius.pact.model.Interaction
 import au.com.dius.pact.model.Pact
-import au.com.dius.pact.model.PactReader
 import au.com.dius.pact.model.Response
-import au.com.dius.pact.provider.ConsumerInfo
 import au.com.dius.pact.provider.ProviderClient
 import au.com.dius.pact.provider.ProviderInfo
 import au.com.dius.pact.provider.ResponseComparison
+import au.com.dius.pact.provider.junit.loader.PactBrokerLoader
 import groovy.util.logging.Slf4j
 import org.junit.Before
 import org.junit.Test
@@ -25,7 +24,7 @@ import user.UserService
 @IntegrationTest
 class LoginServicePactVerifier {
 
-  Pact pact
+  List<Pact> pacts
   ProviderInfo serviceProvider
 
   @Before
@@ -37,23 +36,23 @@ class LoginServicePactVerifier {
         port: '9091'
     )
 
-    ConsumerInfo serviceConsumer = new ConsumerInfo(
-        name: 'Login Service',
-        pactFile: new File('/Users/camilo-nab/Documents/01-contract-based-testing/login-service/target/pacts/Login Service-User Service.json')
-    )
-
-    serviceProvider.consumers.add(serviceConsumer)
-    pact = new PactReader().loadPact(serviceConsumer.pactFile)
+    def loader = new PactBrokerLoader('localhost', '9445', 'http')
+    pacts = loader.load('User Service')
   }
 
   @Test
   void verifyConsumerPacts() {
     def clientResponse
 
-    pact.interactions.each { interaction ->
-      log.info("Verifying interaction '$interaction.description'")
-      clientResponse = performInteraction(interaction)
-      verifyInteraction(interaction, clientResponse)
+    pacts.each { pact ->
+      log.info("Verifying pact between '$pact.consumer.name' and '$pact.provider.name'")
+
+      pact.interactions.each { interaction ->
+        log.info("Verifying interaction '$interaction.description'")
+
+        clientResponse = performInteraction(interaction)
+        verifyInteraction(interaction, clientResponse)
+      }
     }
   }
 

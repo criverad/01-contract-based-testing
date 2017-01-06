@@ -31,6 +31,7 @@ dependencies {
 
   testCompile 'org.springframework.boot:spring-boot-starter-test'
   testCompile 'au.com.dius:pact-jvm-provider_2.11:3.3.3'
+  testCompile 'au.com.dius:pact-jvm-provider-junit_2.11:3.3.3'
 }
 
 sourceCompatibility = 1.8
