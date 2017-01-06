@@ -4,6 +4,8 @@ import groovyx.net.http.RESTClient
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 
+import static groovyx.net.http.ContentType.JSON
+
 @Component
 class UserServiceClient {
 
@@ -21,7 +23,15 @@ class UserServiceClient {
     def path = findUserEndpoint.replace('{username}', username)
 
     def client = new RESTClient(baseUri)
-    def result = client.get(path: path)
+    client.handler.failure = { resp -> throw new RuntimeException("User not found") }
+
+    def result = client.get(
+        path: path,
+        contentType: JSON,
+        headers: ['Content-Type': JSON]
+    )
+
+    assert result.status == 200
 
     result.data
   }
