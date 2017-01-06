@@ -13,12 +13,15 @@ class UserController {
 
   @RequestMapping(method = GET, value = '/{username}', produces = 'application/json', consumes = 'application/json')
   ResponseEntity findUser(@PathVariable String username) {
-    def user = [
-        'name'    : 'Some name',
-        'lastName': 'Some last name',
-        'address' : 'Some address'
-    ]
-    ResponseEntity.ok(user)
+    if (username == 'voiduser') {
+      ResponseEntity.notFound().build()
+    } else {
+      ResponseEntity.ok([
+          'name'    : 'Some name',
+          'lastName': 'Some last name',
+          'address' : 'Some address'
+      ])
+    }
   }
 
 }

@@ -30,7 +30,6 @@ dependencies {
   compile 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 
   testCompile 'org.springframework.boot:spring-boot-starter-test'
-//  testCompile 'org.springframework.boot:spring-boot-test:1.4.3.RELEASE'
   testCompile 'au.com.dius:pact-jvm-provider_2.11:3.3.3'
 }
 
